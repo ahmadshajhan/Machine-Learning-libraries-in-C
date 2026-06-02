@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-ML-Library Documentation</title>
+    <link rel="stylesheet" href="docs.css">
+</head>
+
+<body class="docs-page">
+
+    <div class="docs-layout">
+        <!-- Left Sidebar -->
+        <aside class="docs-sidebar">
+            <a href="#" class="back-btn">
+                <span>←</span> Back to Code
+            </a>
+
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" placeholder="Search doc...">
+                <span class="search-kbd">Ctrl K</span>
+            </div>
+
+            <ul class="nav-menu">
+                <li>
+                    <a href="#introduction">Getting Started <span class="count">2 &gt;</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#introduction" class="sub-item">Introduction</a></li>
+                        <li><a href="#compilation" class="sub-item">Compilation</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#core">Core API <span class="count">4 &gt;</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#tensor_create" class="sub-item">tensor_create</a></li>
+                        <li><a href="#tensor_free" class="sub-item">tensor_free</a></li>
+                        <li><a href="#tensor_fill" class="sub-item">tensor_fill</a></li>
+                        <li><a href="#tensor_print" class="sub-item">tensor_print</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#math">Math & Activations <span class="count">4 &gt;</span></a>
+                    <ul class="sub-menu">
+                        <li><a href="#tensor_add" class="sub-item">tensor_add</a></li>
+                        <li><a href="#tensor_matmul" class="sub-item">tensor_matmul</a></li>
+                        <li><a href="#tensor_relu" class="sub-item">tensor_relu</a></li>
+                        <li><a href="#tensor_sigmoid" class="sub-item">tensor_sigmoid</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="sidebar-section-title">✨ START</div>
+            <ul class="sub-menu" style="margin-left: 1rem;">
+                <li><a href="#introduction" class="sub-item"
+                        style="color: var(--text-macondo); font-weight: bold; border-left: 2px solid var(--text-macondo); padding-left: 0.5rem;">Read
+                        Me</a></li>
+                <li><a href="#compilation" class="sub-item">How the library works</a></li>
+            </ul>
+
+            <div class="lang-selector">
+                <button class="lang-btn">A文 EN ∨</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-main">
+            <div class="label-hand">✨ START</div>
+            <h1 id="introduction">Welcome to C-ML-Library!</h1>
+
+            <p>You'll be diving deep into the fundamentals of Machine Learning using pure C.
+                <strong>C-ML-Library</strong> is a lightweight, dependency-free tensor math library.</p>
+
+            <p>For <strong>low-level projects</strong>, we cover everything natively. You can build Multi-Layer
+                Perceptrons (MLPs), manage memory, and perform matrix multiplications directly. We provide a starter
+                codebase and simple memory-safe methods for basic tensor manipulation.</p>
+
+            <p>Take a deep breath. We're here with you! If you're ever stuck, <strong>search it up</strong>. Seriously.
+                Whatever math operation you need, it's documented right here.</p>
+
+            <h2 id="compilation">1. Compilation & Linking</h2>
+            <p>To use the library, include <code>ml.h</code> in your program and compile with the corresponding C files.
+                No external frameworks are required, just standard C math libraries.</p>
+
+            <div class="callout">
+                Check out our <a href="#core" class="inline-link">API reference</a> below. Remember to always link the
+                math library with <code>-lm</code> when compiling using gcc or clang!
+            </div>
+
+            <pre><code>gcc src/main.c src/ml.c -Iinclude -lm -o ml_app
+./ml_app</code></pre>
+
+            <h2 id="core">2. Core API Reference</h2>
+            <p>The fundamental building block of C-ML-Library is the <code>Tensor</code> struct, which holds a 1D
+                contiguous array of floating-point data wrapped with dimensions.</p>
+            <div id="tensor_create" style="margin-top: 2rem;">
+                <h3><code>tensor_create(rows, cols)</code></h3>
+                <p>Allocates memory for a new tensor of size <code>rows x cols</code>.</p>
+            </div>
+            <div id="tensor_free" style="margin-top: 2rem;">
+                <h3><code>tensor_free(Tensor* t)</code></h3>
+                <p>Safely deallocates the tensor and its inner data array.</p>
+            </div>
+            <div id="tensor_fill" style="margin-top: 2rem;">
+                <h3><code>tensor_fill(Tensor* t, float val)</code></h3>
+                <p>Fills an entire tensor with a uniform float scalar value.</p>
+            </div>
+            <div id="tensor_print" style="margin-top: 2rem;">
+                <h3><code>tensor_print(Tensor* t)</code></h3>
+                <p>Prints the tensor dimensions and formats its data for terminal debugging.</p>
+            </div>
+
+            <h2 id="math">3. Math Operations & Activations</h2>
+            <p>We provide basic neural network layer operations to perform forward passes natively in C.</p>
+            <div id="tensor_add" style="margin-top: 2rem;">
+                <h3><code>tensor_add(Tensor* a, Tensor* b)</code></h3>
+                <p>Element-wise addition of two tensors. Requires matching dimensions.</p>
+            </div>
+            <div id="tensor_matmul" style="margin-top: 2rem;">
+                <h3><code>tensor_matmul(Tensor* a, Tensor* b)</code></h3>
+                <p>Dot-product matrix multiplication (A * B). Requires <code>A.cols == B.rows</code>.</p>
+            </div>
+            <div id="tensor_relu" style="margin-top: 2rem;">
+                <h3><code>tensor_relu(Tensor* t)</code></h3>
+                <p>Applies the Rectified Linear Unit activation function in-place (max(0, x)).</p>
+            </div>
+            <div id="tensor_sigmoid" style="margin-top: 2rem;">
+                <h3><code>tensor_sigmoid(Tensor* t)</code></h3>
+                <p>Applies the Sigmoid activation function in-place.</p>
+            </div>
+
+            <h2 id="example">4. Full Example: Forward Pass</h2>
+            <p>Below is a <strong>full</strong> example showing how to initialize weights and inputs, perform a matrix
+                multiplication, and apply a ReLU activation natively.</p>
+
+            <pre class="scrollable-code"><code>#include "ml.h"
+#include <stdio.h>
+
+int main() {
+    printf("Initializing Neural Network Layers...\n");
+    
+    // Create weights (2x3) and fill with 0.5
+    Tensor* weights = tensor_create(2, 3);
+    tensor_fill(weights, 0.5f);
+    
+    // Create inputs (3x1) and fill with 2.0
+    Tensor* inputs = tensor_create(3, 1);
+    tensor_fill(inputs, 2.0f);
+    
+    // Forward pass: MatMul
+    Tensor* output = tensor_matmul(weights, inputs);
+    
+    // Apply activation
+    tensor_relu(output);
+    
+    // Check results
+    printf("Result of Forward Pass:\n");
+    tensor_print(output);
+    
+    // Free memory
+    tensor_free(weights);
+    tensor_free(inputs);
+    tensor_free(output);
+    
+    return 0;
+}</code></pre>
+
+        </main>
+
+        <!-- Right Sidebar (Table of Contents) -->
+        <aside class="docs-toc">
+            <h4>● ON THIS PAGE</h4>
+            <ul>
+                <li><a href="#introduction" class="active">1. Need inspiration?</a></li>
+                <li><a href="#compilation">2. Compilation</a></li>
+                <li><a href="#core">3. Core API</a></li>
+                <li><a href="#math">4. Math Operations</a></li>
+                <li><a href="#example">5. Example</a></li>
+            </ul>
+        </aside>
+
+        <button class="help-btn">?</button>
+    </div>
+
+</body>
+
+</html>
